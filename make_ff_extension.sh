@@ -40,6 +40,9 @@ cat > "$EXT_DIR/manifest.json" <<EOL
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "chrome_settings_overrides": {
+    "homepage": "index.html"
+  },
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
