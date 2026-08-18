@@ -27,3 +27,5 @@ dist-ssr
 
 signed
 extension_build
+
+*.zip
