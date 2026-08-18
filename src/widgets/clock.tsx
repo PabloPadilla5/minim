@@ -45,11 +45,11 @@ export const clockWidget: WidgetType = {
       fontSize: 4,
       clockTimeZone: "",
       seperator: ":",
-      timeFormat: "hh:mm A",
+      timeFormat: "HH:mm",
     };
   },
 
-  preview: () => <div style={{ fontSize: "25px" }}>12:34 PM</div>,
+  preview: () => <div style={{ fontSize: "25px" }}>12:34</div>,
 
   settingsForm: (widget) => {
     const dispatch = useGridLayoutDispatch();

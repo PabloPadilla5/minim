@@ -20,9 +20,9 @@ import {
 const SETTINGS_KEY = "bookmarksBarSettings";
 
 const defaultSettings: BookmarksBarSettings = {
-  enabled: false,
+  enabled: true,
   appearance: "icon_text",
-  position: "top",
+  position: "bottom",
   style: "glass",
   blur: 10,
 };

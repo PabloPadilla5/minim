@@ -5,15 +5,40 @@
       {
         "widgetCode": "clock",
         "subText": "",
-        "fontSize": 11,
+        "fontSize": 9,
         "clockTimeZone": "",
         "seperator": ":",
-        "timeFormat": "h:mm",
+        "timeFormat": "HH:mm",
         "id": "1580396533586",
         "lastMovedAt": 1580401459784,
-        "layout": { "x": 1, "y": 1 }
+        "layout": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "widgetCode": "date",
+        "subText": "",
+        "fontSize": 3,
+        "dateTimeZone": "",
+        "dateFormat": "MMMM do yyyy",
+        "id": "1580396533587",
+        "lastMovedAt": 1580401459785,
+        "layout": {
+          "x": 1,
+          "y": 1
+        }
       }
     ],
-    "cells": {}
+    "cells": {
+      "1-1": {
+        "border": "glassmorphism",
+        "borderWidth": 0,
+        "borderRadius": 20,
+        "verticalPadding": 5,
+        "horizontalPadding": 14,
+        "stacking": "vertical"
+      }
+    }
   }
 }
