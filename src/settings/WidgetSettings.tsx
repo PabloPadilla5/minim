@@ -68,6 +68,7 @@ function CellSettings({ cellId }) {
       borderRadius: 20,
       verticalPadding: 5,
       horizontalPadding: 14,
+      blur: 7,
     },
     "black-on-white": {
       borderRadius: 0,

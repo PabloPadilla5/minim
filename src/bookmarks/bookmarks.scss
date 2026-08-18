@@ -161,6 +161,15 @@ $bookmarks-bar-bottom-clearance: 60px;
     }
   }
 
+  &__icon-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+  }
+
   &__label {
     overflow: hidden;
     text-overflow: ellipsis;

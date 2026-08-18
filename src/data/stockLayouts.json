@@ -37,7 +37,8 @@
         "borderRadius": 20,
         "verticalPadding": 5,
         "horizontalPadding": 14,
-        "stacking": "vertical"
+        "stacking": "vertical",
+        "blur": 7
       }
     }
   }

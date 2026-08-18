@@ -1,21 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Icon } from "@mdi/react";
-import { mdiFolder, mdiFolderOpen, mdiBookmarkOutline } from "@mdi/js";
+import { mdiFolder, mdiFolderOpen } from "@mdi/js";
 import { useBookmarks } from "./BookmarksContext";
 import { BookmarkNode } from "./types";
-
-function getFaviconUrl(url: string | undefined): string | null {
-  if (!url) return null;
-  try {
-    const u = new URL(url);
-    return `https://www.google.com/s2/favicons?sz=32&domain=${encodeURIComponent(
-      u.hostname
-    )}`;
-  } catch {
-    return null;
-  }
-}
+import { Favicon } from "./Favicon";
 
 function isFolder(node: BookmarkNode): boolean {
   return !node.url;
@@ -108,7 +97,6 @@ function LinkItem({
 }) {
   const showIcon = appearance !== "text_only";
   const showText = appearance !== "icon_only";
-  const favicon = showIcon ? getFaviconUrl(node.url) : null;
 
   return (
     <a
@@ -119,19 +107,7 @@ function LinkItem({
     >
       {showIcon && (
         <span className="bookmarks-bar__icon">
-          {favicon ? (
-            <img
-              src={favicon}
-              alt=""
-              width={16}
-              height={16}
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
-          ) : (
-            <Icon path={mdiBookmarkOutline} size={0.6} />
-          )}
+          <Favicon url={node.url} />
         </span>
       )}
       {showText && (
@@ -240,7 +216,6 @@ function MenuLink({
   appearance: "icon_text" | "text_only" | "icon_only";
 }) {
   const showIcon = appearance !== "text_only";
-  const favicon = showIcon ? getFaviconUrl(node.url) : null;
   return (
     <a
       className="bookmarks-bar__menu-item"
@@ -250,19 +225,7 @@ function MenuLink({
     >
       {showIcon && (
         <span className="bookmarks-bar__menu-icon">
-          {favicon ? (
-            <img
-              src={favicon}
-              alt=""
-              width={16}
-              height={16}
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
-          ) : (
-            <Icon path={mdiBookmarkOutline} size={0.6} />
-          )}
+          <Favicon url={node.url} />
         </span>
       )}
       <span className="bookmarks-bar__menu-label">
