@@ -47,7 +47,10 @@ cat > "$EXT_DIR/manifest.json" <<EOL
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "minim@papm.mx"
+      "id": "minim@papm.mx",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   }
 }
