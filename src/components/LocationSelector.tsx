@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client/react";
 import { Form } from "react-bootstrap";
 import AsyncSelect from "react-select/async";
 import { City, CitySearchDocument } from "../gql/graphql";
@@ -66,16 +66,15 @@ export function LocationSelector({
         variables: {
           query: inputValue,
         },
-        onCompleted: (data) => {
-          const options = data?.citySearch?.map((city) => {
-            const label = `${city && city.name}, ${city && city.country}`;
-            return {
-              label,
-              value: JSON.stringify(city),
-            };
-          });
-          callback(options);
-        },
+      }).then(({ data }) => {
+        const options = data?.citySearch?.map((city) => {
+          const label = `${city && city.name}, ${city && city.country}`;
+          return {
+            label,
+            value: JSON.stringify(city),
+          };
+        });
+        callback(options ?? []);
       });
     } else {
       callback([]);

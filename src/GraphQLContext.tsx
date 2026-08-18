@@ -1,12 +1,11 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
 
 const client = new ApolloClient({
-  uri: "https://m3-backend.fly.dev/api/graphql",
-  // uri: "http://localhost:4000/api/graphql",
+  link: new HttpLink({
+    uri: "https://m3-backend.fly.dev/api/graphql",
+    // uri: "http://localhost:4000/api/graphql",
+  }),
   cache: new InMemoryCache(),
 });
 

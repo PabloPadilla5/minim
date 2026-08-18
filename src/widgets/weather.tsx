@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client/react";
 import { useEffect } from "react";
 import { LabelledSelector } from "../components/LabelledSelector";
 import { LabelledTextInput } from "../components/LabelledTextInput";
@@ -139,17 +139,17 @@ export const weatherWidget: WidgetType = {
             lat: widget.city.lat,
             lon: widget.city.lon,
           },
-          onCompleted: (data) => {
-            const weather = data.weather;
-            dispatch({
-              type: "UPDATE_WIDGET",
-              payload: {
-                ...widget,
-                temperature: weather.temp,
-                weatherCondition: weather?.descriptionAlt,
-              },
-            });
-          },
+        }).then(({ data }) => {
+          const weather = data?.weather;
+          if (!weather) return;
+          dispatch({
+            type: "UPDATE_WIDGET",
+            payload: {
+              ...widget,
+              temperature: weather.temp,
+              weatherCondition: weather?.descriptionAlt,
+            },
+          });
         });
       }
     }, [tick]);

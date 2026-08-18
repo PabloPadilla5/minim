@@ -32,6 +32,10 @@ cat > $MANIFEST_FILE <<- EOM
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "permissions": [
+    "bookmarks",
+    "favicon"
+  ],
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",

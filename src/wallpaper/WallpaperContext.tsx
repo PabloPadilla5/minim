@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client/react";
 import { createContext, useCallback, useContext, useReducer } from "react";
 import {
   RandomImageQueryDocument,
@@ -113,25 +113,21 @@ function wallpaperReducer(
 
 export function useSilentWallpaperFetcher() {
   const [getRandomImage] = useLazyQuery(RandomImageQueryDocument, {
-    onCompleted: async (response) => {
-      const randomImage = response.randomImage;
-
-      randomImage &&
-        randomImage.urls?.full &&
-        (await storeImage(
-          addUnsplashScalingParams(randomImage.urls.full),
-          randomImage
-        ));
-    },
+    fetchPolicy: "no-cache",
   });
 
   const fetchRandomImage = useCallback(
     (variables: RandomImageQueryQueryVariables) => {
       doesStoreHaveUnviewedImages().then((result) => {
         if (!result) {
-          getRandomImage({
-            fetchPolicy: "no-cache",
-            variables,
+          getRandomImage({ variables }).then(async ({ data: response }) => {
+            const randomImage = response?.randomImage;
+            if (randomImage && randomImage.urls?.full) {
+              await storeImage(
+                addUnsplashScalingParams(randomImage.urls.full),
+                randomImage
+              );
+            }
           });
         }
       });
@@ -146,52 +142,7 @@ export function useWallpaperFetcher(noRefresh = false) {
   const wallpaperDispatch = useWallpaperDispatch();
   const wallpaperState = useWallpaper();
   const [getRandomImage] = useLazyQuery(RandomImageQueryDocument, {
-    onCompleted: async (response) => {
-      const randomImage = response.randomImage;
-      const meta =
-        randomImage && randomImage.links
-          ? {
-              link: randomImage.links?.download
-                ?.split("/")
-                .slice(0, -1)
-                .join("/"),
-              fullName: (randomImage.user?.lastName
-                ? randomImage.user?.firstName + " " + randomImage.user?.lastName
-                : randomImage.user?.firstName
-              ).trim(),
-              description: randomImage.description,
-              altDescription: randomImage.altDescription,
-              username: randomImage.user?.username,
-              color: randomImage.color,
-              exif: randomImage.exif,
-              location: randomImage.location,
-              userLink: randomImage.user?.links?.html,
-            }
-          : undefined;
-      randomImage &&
-        randomImage.urls?.full &&
-        (await storeImage(
-          addUnsplashScalingParams(randomImage.urls.full),
-          meta
-        ));
-
-      fetchLatestImage().then(
-        noRefresh
-          ? () => {}
-          : ({ wallpaper_url, meta: metadata }) => {
-              wallpaperDispatch({
-                type: "UPDATE_WALLPAPER",
-                payload: {
-                  ...wallpaperState,
-                  meta: metadata,
-                  background: `url('${wallpaper_url}')`,
-                  color: "white",
-                  fetchStarted: false,
-                },
-              });
-            }
-      );
-    },
+    fetchPolicy: "no-cache",
   });
 
   const fetchRandomImage = useCallback(
@@ -204,9 +155,53 @@ export function useWallpaperFetcher(noRefresh = false) {
           fetchStarted: true,
         },
       });
-      getRandomImage({
-        fetchPolicy: "no-cache",
-        variables,
+      getRandomImage({ variables }).then(async ({ data: response }) => {
+        const randomImage = response?.randomImage;
+        const meta =
+          randomImage && randomImage.links
+            ? {
+                link: randomImage.links?.download
+                  ?.split("/")
+                  .slice(0, -1)
+                  .join("/"),
+                fullName: (randomImage.user?.lastName
+                  ? randomImage.user?.firstName +
+                    " " +
+                    randomImage.user?.lastName
+                  : randomImage.user?.firstName
+                )?.trim(),
+                description: randomImage.description,
+                altDescription: randomImage.altDescription,
+                username: randomImage.user?.username,
+                color: randomImage.color,
+                exif: randomImage.exif,
+                location: randomImage.location,
+                userLink: randomImage.user?.links?.html,
+              }
+            : undefined;
+        if (randomImage && randomImage.urls?.full) {
+          await storeImage(
+            addUnsplashScalingParams(randomImage.urls.full),
+            meta
+          );
+        }
+
+        fetchLatestImage().then(
+          noRefresh
+            ? () => {}
+            : ({ wallpaper_url, meta: metadata }) => {
+                wallpaperDispatch({
+                  type: "UPDATE_WALLPAPER",
+                  payload: {
+                    ...wallpaperState,
+                    meta: metadata,
+                    background: `url('${wallpaper_url}')`,
+                    color: "white",
+                    fetchStarted: false,
+                  },
+                });
+              }
+        );
       });
     },
     [getRandomImage, wallpaperState]

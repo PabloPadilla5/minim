@@ -15,6 +15,8 @@ import { mdiAlertDecagram, mdiCog, mdiFire, mdiShimmer } from "@mdi/js";
 import { BottomBarButton } from "./components/BottomBarButton";
 import { WallpaperInfoSpinner } from "./WallpaperInfoSpinner";
 import { WidgetGrid } from "./widgets/WIdgetGrid";
+import { BookmarksProvider } from "./bookmarks/BookmarksContext";
+import { BookmarksBar } from "./bookmarks/BookmarksBar";
 
 export function App() {
   const [tick, setTick] = useState(new Date().getTime());
@@ -36,12 +38,15 @@ export function App() {
       <GraphQLProvider>
         <WallpaperProvider>
           <WidgetProvider>
+            <BookmarksProvider>
             {settingsOpen && (
               <Settings
                 setDroppingWidgetData={setDroppingWidgetData}
                 setSettingsOpen={setSettingsOpen}
               />
             )}
+
+            <BookmarksBar />
 
             <div className="main-surface">
               <WidgetGrid
@@ -69,6 +74,7 @@ export function App() {
               </div>
             </div>
             <WallpaperSurface tick={tick} />
+            </BookmarksProvider>
           </WidgetProvider>
         </WallpaperProvider>
       </GraphQLProvider>

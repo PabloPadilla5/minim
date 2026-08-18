@@ -34,6 +34,9 @@ cat > "$EXT_DIR/manifest.json" <<EOL
   "name": "Minim: Minimalist New Tab",
   "version": "$VERSION",
   "description": "A minimal newtab for Firefox",
+  "permissions": [
+    "bookmarks"
+  ],
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
@@ -44,7 +47,7 @@ cat > "$EXT_DIR/manifest.json" <<EOL
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "minim@a.tulv.in"
+      "id": "minim@papm.mx"
     }
   }
 }
