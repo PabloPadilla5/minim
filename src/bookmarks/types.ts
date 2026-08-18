@@ -13,6 +13,7 @@ export interface BookmarksBarSettings {
   position: BookmarksBarPosition;
   style: BookmarksBarStyle;
   blur: number;
+  iconSize: number;
 }
 
 export interface BookmarkNode {

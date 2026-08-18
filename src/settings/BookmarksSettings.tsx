@@ -59,6 +59,14 @@ export function BookmarksSettings() {
           }
         />
 
+        <LabelledSlider
+          label={`Icon size (${settings.iconSize}px)`}
+          min={12}
+          max={32}
+          currentValue={settings.iconSize}
+          onChange={(iconSize: number) => setSetting("iconSize", iconSize)}
+        />
+
         <LabelledSelector
           label="Position"
           value={settings.position}

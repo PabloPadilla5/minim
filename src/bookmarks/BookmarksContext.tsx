@@ -25,6 +25,7 @@ const defaultSettings: BookmarksBarSettings = {
   position: "bottom",
   style: "glass",
   blur: 10,
+  iconSize: 16,
 };
 
 function loadSettings(): BookmarksBarSettings {

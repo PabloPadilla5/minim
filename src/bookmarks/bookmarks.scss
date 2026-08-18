@@ -149,14 +149,15 @@ $bookmarks-bar-bottom-clearance: 60px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
-    flex: 0 0 16px;
+    width: var(--bookmarks-bar-icon-size, 16px);
+    height: var(--bookmarks-bar-icon-size, 16px);
+    flex: 0 0 var(--bookmarks-bar-icon-size, 16px);
 
-    img {
+    img,
+    svg {
       display: block;
-      width: 16px;
-      height: 16px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
     }
   }
@@ -165,9 +166,14 @@ $bookmarks-bar-bottom-clearance: 60px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
-    flex: 0 0 16px;
+    width: var(--bookmarks-bar-icon-size, 16px);
+    height: var(--bookmarks-bar-icon-size, 16px);
+    flex: 0 0 var(--bookmarks-bar-icon-size, 16px);
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__label {
@@ -280,14 +286,15 @@ $bookmarks-bar-bottom-clearance: 60px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
-    flex: 0 0 16px;
+    width: var(--bookmarks-bar-icon-size, 16px);
+    height: var(--bookmarks-bar-icon-size, 16px);
+    flex: 0 0 var(--bookmarks-bar-icon-size, 16px);
 
-    img {
+    img,
+    svg {
       display: block;
-      width: 16px;
-      height: 16px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
     }
   }

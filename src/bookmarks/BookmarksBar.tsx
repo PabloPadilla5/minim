@@ -29,12 +29,16 @@ export function BookmarksBar() {
   const usesBlur =
     settings.style === "glass" || settings.style === "outline";
   const blurPx = `${Math.max(0, settings.blur)}px`;
-  const inlineStyle: React.CSSProperties = usesBlur
-    ? ({
-        backdropFilter: `blur(${blurPx})`,
-        WebkitBackdropFilter: `blur(${blurPx})`,
-      } as React.CSSProperties)
-    : {};
+  const iconSizePx = `${Math.max(12, settings.iconSize ?? 16)}px`;
+  const inlineStyle: React.CSSProperties = {
+    ["--bookmarks-bar-icon-size" as string]: iconSizePx,
+    ...(usesBlur
+      ? {
+          backdropFilter: `blur(${blurPx})`,
+          WebkitBackdropFilter: `blur(${blurPx})`,
+        }
+      : {}),
+  } as React.CSSProperties;
 
   return (
     <div
@@ -246,6 +250,7 @@ function SubFolderItem({
   node: BookmarkNode;
   appearance: "icon_text" | "text_only" | "icon_only";
 }) {
+  const { settings } = useBookmarks();
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -370,12 +375,16 @@ function SubFolderItem({
             ref={popupRef}
             className="bookmarks-bar__menu bookmarks-bar__submenu-popup"
             role="menu"
-            style={{
-              position: "fixed",
-              top: pos.top,
-              left: pos.left,
-              width: SUBMENU_WIDTH,
-            }}
+          style={{
+            position: "fixed",
+            top: pos.top,
+            left: pos.left,
+            width: SUBMENU_WIDTH,
+            ["--bookmarks-bar-icon-size" as string]: `${Math.max(
+              12,
+              settings.iconSize ?? 16
+            )}px`,
+          }}
             onMouseEnter={clearCloseTimer}
             onMouseLeave={scheduleClose}
           >
